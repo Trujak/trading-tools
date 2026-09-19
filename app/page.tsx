@@ -170,9 +170,10 @@ export default function Home() {
     const y = e.clientY - rect.top;
 
     const dp = fromXY(x, y);
+    console.log('dp:', dp);
     setMouseDataPoint(dp);
     if (dp) setHoverPos({ x, y, price: dp.price });
-
+    
     if (dragRef.current && dp) {
       const { lineId, point } = dragRef.current;
       setLines((prev) => prev.map((l) => (l.id === lineId && !l.locked ? { ...l, [point]: dp } : l)));
