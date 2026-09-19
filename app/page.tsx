@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { createChart, CandlestickSeries, ColorType } from 'lightweight-charts';
+import { createChart, CandlestickSeries, ColorType, UTCTimestamp } from 'lightweight-charts';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         const candles = data.map((d: any) => ({
-          time: d[0] / 1000,
+                    time: (d[0] / 1000) as UTCTimestamp,
           open: parseFloat(d[1]),
           high: parseFloat(d[2]),
           low: parseFloat(d[3]),
@@ -52,7 +52,7 @@ export default function Home() {
       const msg = JSON.parse(event.data);
       const k = msg.k;
       candleSeries.update({
-        time: k.t / 1000,
+                time: (k.t / 1000) as UTCTimestamp,
         open: parseFloat(k.o),
         high: parseFloat(k.h),
         low: parseFloat(k.l),
